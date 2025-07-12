@@ -1,0 +1,58 @@
+.stats-layout {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    align-items: flex;
+}
+
+.stats-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 320px;
+}
+
+.stat-panel {
+    background-color: #2d9cdb;
+    border: none;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    color: #fff;
+}
+
+.stat-panel.user {
+    background-color: #2d9cdb;
+}
+.stat-panel.employer {
+    background-color: #3867d6;
+}
+.stat-panel.job {
+    background-color: #44bd32;
+}
+.stat-panel.category {
+    background-color: #fc5c65;
+}
+
+.stats-charts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.chart-block {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 48px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h4 {
+    margin-bottom: 10px;
+}

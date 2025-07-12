@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/LoginPage.css"; // Import CSS riêng cho trang Login
+import "../../styles/AuthPage.css";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ export default function LoginPage() {
 
             // Điều hướng tới trang phù hợp với role
             if (userRole === "admin") {
-                navigate("/admin-dashboard");
+                navigate("/admin-dashboard/stats");
             } else if (userRole === "employer") {
                 navigate("/company-dashboard");
             } else {
@@ -40,33 +40,31 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="login-container">
+        <div className="auth-container">
             <h2>Đăng nhập</h2>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="email"
-                    className="form-control"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="password"
-                    className="form-control"
                     placeholder="Mật khẩu"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <button className="btn btn-primary" onClick={login}>
+            <button className="auth-btn" onClick={login}>
                 Đăng nhập
             </button>
-            <div className="no-account">
+            <div className="auth-link-group">
                 <span>Chưa có tài khoản? </span>
                 <button
-                    className="btn btn-link"
+                    className="auth-link-btn"
                     onClick={() => navigate("/register")}
                 >
                     Đăng ký

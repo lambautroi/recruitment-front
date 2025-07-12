@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/RegisterPage.css";
+import "../../styles/AuthPage.css";
 
 export default function RegisterPage() {
     const [fullName, setFullName] = useState("");
@@ -37,9 +37,9 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="register-container">
+        <div className="auth-container">
             <h2>Đăng ký</h2>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="text"
                     className="form-control"
@@ -48,7 +48,7 @@ export default function RegisterPage() {
                     onChange={(e) => setFullName(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="email"
                     className="form-control"
@@ -57,7 +57,7 @@ export default function RegisterPage() {
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="text"
                     className="form-control"
@@ -66,7 +66,7 @@ export default function RegisterPage() {
                     onChange={(e) => setPhone(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="password"
                     className="form-control"
@@ -75,7 +75,7 @@ export default function RegisterPage() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <input
                     type="password"
                     className="form-control"
@@ -84,7 +84,7 @@ export default function RegisterPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
-            <div className="form-group">
+            <div className="auth-form-group">
                 <select
                     className="form-control"
                     value={role}
@@ -94,13 +94,13 @@ export default function RegisterPage() {
                     <option value="employer">Doanh nghiệp</option>
                 </select>
             </div>
-            <button className="btn btn-primary" onClick={register}>
+            <button className="auth-btn" onClick={register}>
                 Đăng ký
             </button>
-            <div className="already-account">
+            <div className="auth-link-group">
                 <span>Đã có tài khoản? </span>
                 <button
-                    className="btn btn-link"
+                    className="auth-link-btn"
                     onClick={() => navigate("/login")}
                 >
                     Đăng nhập
