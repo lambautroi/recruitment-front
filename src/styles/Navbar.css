@@ -1,0 +1,46 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    z-index: 1000;
+    box-sizing: border-box;
+    background: #ffdddd;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.navbar .logo {
+    font-size: 0;
+    font-weight: bold;
+}
+
+.navbar .nav-links a {
+    margin: 0 15px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.navbar .nav-links a:hover {
+    text-decoration: underline;
+}
+
+.navbar .auth-buttons button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar .auth-buttons button:hover {
+    background-color: #0056b3;
+}

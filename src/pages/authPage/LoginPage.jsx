@@ -10,7 +10,6 @@ export default function LoginPage() {
 
     const login = async () => {
         try {
-            // Gửi thông tin đăng nhập đến backend
             const res = await axios.post(
                 "http://localhost:3001/api/auth/login",
                 {
@@ -22,18 +21,11 @@ export default function LoginPage() {
             const { token } = res.data;
             localStorage.setItem("token", token);
 
-            // Giải mã token để lấy thông tin role
             const decodedToken = JSON.parse(atob(token.split(".")[1]));
             const userRole = decodedToken.role;
 
-            // Điều hướng tới trang phù hợp với role
-            if (userRole === "admin") {
-                navigate("/admin-dashboard/stats");
-            } else if (userRole === "employer") {
-                navigate("/company-dashboard");
-            } else {
-                navigate("/candidate-dashboard");
-            }
+            navigate("/");
+
         } catch (error) {
             alert("Sai thông tin đăng nhập!");
         }

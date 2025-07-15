@@ -1,0 +1,50 @@
+.intro-slide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0;
+    background: url("/background-slide.jpg") center center/cover no-repeat;
+    border-radius: 8px;
+    box-sizing: border-box;
+    min-height: 350px;
+}
+
+.intro-slide .left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-slide .left img {
+    width: 60%;
+    height: auto;
+}
+
+.intro-slide .right {
+    flex: 1;
+    padding-left: 50px;
+}
+
+.intro-slide .right h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+.intro-slide .right p {
+    font-size: 18px;
+    color: #666;
+}
+
+.intro-slide .cta-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.intro-slide .cta-btn:hover {
+    background-color: #0056b3;
+}
