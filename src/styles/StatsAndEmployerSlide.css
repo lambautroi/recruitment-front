@@ -1,0 +1,114 @@
+.stats-and-employer-slide {
+    padding: 50px 5%;
+    background-color: #f4f4f4;
+}
+
+.stats-panel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.stat-item {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 22%;
+}
+
+.stat-item h3 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 16px;
+    color: #333;
+}
+
+.employer-list h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.employer-slide {
+    padding: 50px 5%;
+    background-color: #f4f4f4;
+}
+
+.employer-slide h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.employer-slide p {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.employer-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 card mỗi hàng */
+    gap: 20px;
+    justify-items: center;
+}
+
+.employer-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+}
+
+.employer-logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.employer-card h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.employer-card p {
+    font-size: 14px;
+    color: #777;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.navigation button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navigation button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.navigation button:hover:not(:disabled) {
+    background-color: #0056b3;
+}

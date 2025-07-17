@@ -1,0 +1,60 @@
+.job-intro-slide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 5%;
+    background-color: #f4f4f4;
+}
+
+.job-intro-slide .left {
+    flex: 1;
+    text-align: left;
+    padding-right: 30px;
+}
+
+.job-intro-slide .left .subtitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.job-intro-slide .left .title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.job-intro-slide .left .description {
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.job-intro-slide .cta-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.job-intro-slide .cta-btn:hover {
+    background-color: #0056b3;
+}
+
+.job-intro-slide .right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.job-intro-slide .illustration {
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+}

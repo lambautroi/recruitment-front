@@ -1,0 +1,44 @@
+.job-list-banner {
+    background-image: url("banner-job.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    text-align: left;
+    position: relative;
+    padding-left: 60px;
+    padding-bottom: 48px;
+}
+
+.job-list-banner-content {
+    z-index: 2;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.banner-title {
+    font-size: 54px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.18), 0 1px 0 #fff;
+    letter-spacing: 1px;
+    line-height: 1.1;
+}
+
+.breadcrumb {
+    font-size: 20px;
+    font-weight: 500;
+    color: #f0f4ff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.breadcrumb a {
+    color: #f0f4ff;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}

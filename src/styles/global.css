@@ -14,12 +14,9 @@ body {
 
 .container {
     width: 100vw;
-    max-width: 1400px;
+    max-width: 1516px;
     margin: 0 auto;
     padding: 20px;
-}
-.container .intro-slide {
-    margin-top: 700px;
 }
 
 h1,
