@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/homePage/Navbar";
 import "../styles/JobListPage.css";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -286,6 +287,7 @@ export default function JobListPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
