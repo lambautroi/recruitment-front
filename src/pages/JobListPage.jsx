@@ -271,15 +271,14 @@ export default function JobListPage() {
                                 <div className="job-salary">
                                     <span className="salary-icon">💰</span>
                                     <span className="salary-text">
-                                        Mức lương từ{" "}
-                                        {new Intl.NumberFormat("vi-VN").format(
-                                            job.salary_range
-                                        )}{" "}
-                                        đ đến{" "}
-                                        {new Intl.NumberFormat("vi-VN").format(
-                                            parseInt(job.salary_range) + 5000000
-                                        )}{" "}
-                                        đ
+                                        {(() => {
+                                            if (job.salary_range && job.salary_range.includes('-')) {
+                                                const [minSalary, maxSalary] = job.salary_range.split('-');
+                                                return `Mức lương từ ${new Intl.NumberFormat("vi-VN").format(parseInt(minSalary))} đ đến ${new Intl.NumberFormat("vi-VN").format(parseInt(maxSalary))} đ`;
+                                            } else {
+                                                return job.salary_range || "Thỏa thuận";
+                                            }
+                                        })()}
                                     </span>
                                 </div>
                             </div>

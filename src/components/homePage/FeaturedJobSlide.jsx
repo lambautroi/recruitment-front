@@ -66,7 +66,7 @@ export default function FeaturedJobSlide() {
                             <p>Kinh nghiệm: Từ 2 - 3 năm</p>
                             <p>Trình độ: Đại học</p>
                             <p>Mức lương: {job.salary_range}</p>
-                            <a href={`/job/${job._id}`} className="cta-btn">
+                            <a href={`/jobs/${job._id}`} className="cta-btn">
                                 Xem ngay
                             </a>
                         </div>

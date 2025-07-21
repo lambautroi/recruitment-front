@@ -6,6 +6,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import CompanyDashboard from "./pages/CompanyDashboard";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import JobListPage from "./pages/JobListPage";
+import JobDetailPage from "./pages/JobDetailPage";
 import EmployerListPage from "./pages/EmployerListPage";
 import CandidateListPage from "./pages/CandidateListPage";
 
@@ -26,6 +27,7 @@ function App() {
                     element={<CandidateDashboard />}
                 />
                 <Route path="/jobs" element={<JobListPage />} />
+                <Route path="/jobs/:id" element={<JobDetailPage />} />
                 <Route path="/employers" element={<EmployerListPage />} />
                 <Route path="/candidates" element={<CandidateListPage />} />
             </Routes>
