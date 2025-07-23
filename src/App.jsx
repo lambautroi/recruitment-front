@@ -9,6 +9,7 @@ import EmployerListPage from "./pages/EmployerListPage";
 import CandidateListPage from "./pages/CandidateListPage";
 import CandidateDetailPage from "./pages/CandidateDetailPage";
 import EmployerDetailPage from "./pages/EmployerDetailPage";
+import EmployerDashboard from "./pages/employer/EmployerDashboard";
 
 function App() {
     return (
@@ -27,6 +28,10 @@ function App() {
                     element={<CandidateDetailPage />}
                 />
                 <Route path="/companies/:id" element={<EmployerDetailPage />} />
+                <Route
+                    path="/employer/dashboard"
+                    element={<EmployerDashboard />}
+                />
             </Routes>
         </Router>
     );
