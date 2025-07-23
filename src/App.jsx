@@ -8,6 +8,7 @@ import JobDetailPage from "./pages/JobDetailPage";
 import EmployerListPage from "./pages/EmployerListPage";
 import CandidateListPage from "./pages/CandidateListPage";
 import CandidateDetailPage from "./pages/CandidateDetailPage";
+import EmployerDetailPage from "./pages/EmployerDetailPage";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     path="/candidates/:id"
                     element={<CandidateDetailPage />}
                 />
+                <Route path="/companies/:id" element={<EmployerDetailPage />} />
             </Routes>
         </Router>
     );
