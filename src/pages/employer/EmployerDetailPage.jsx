@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "../components/homePage/Navbar";
-import Footer from "../components/Footer";
-import "../styles/EmployerDetailPage.css";
+import Navbar from "../../components/homePage/Navbar";
+import Footer from "../../components/Footer";
+import "../../styles/EmployerDetailPage.css";
 import axios from "axios";
 
 const EmployerDetailPage = () => {

@@ -5,10 +5,10 @@ import RegisterPage from "./pages/authPage/RegisterPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import JobListPage from "./pages/JobListPage";
 import JobDetailPage from "./pages/JobDetailPage";
-import EmployerListPage from "./pages/EmployerListPage";
-import CandidateListPage from "./pages/CandidateListPage";
-import CandidateDetailPage from "./pages/CandidateDetailPage";
-import EmployerDetailPage from "./pages/EmployerDetailPage";
+import EmployerListPage from "./pages/employer/EmployerListPage";
+import CandidateListPage from "./pages/candidate/CandidateListPage";
+import CandidateDetailPage from "./pages/candidate/CandidateDetailPage";
+import EmployerDetailPage from "./pages/employer/EmployerDetailPage";
 import EmployerDashboard from "./pages/employer/EmployerDashboard";
 
 function App() {
