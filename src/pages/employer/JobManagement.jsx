@@ -143,7 +143,7 @@ const JobManagement = ({ userInfo }) => {
             <div className="page-header">
                 <h2>Danh sách tin tuyển dụng</h2>
                 <Link to="/employer/jobs/create" className="btn-create">
-                    + Tạo mới
+                    Tạo tin mới
                 </Link>
             </div>
 

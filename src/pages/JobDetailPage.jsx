@@ -116,7 +116,7 @@ export default function JobDetailPage() {
                                     • {job.form_name}
                                 </span>
                                 <span className="job-category">
-                                    • {job.employer?.category_name}
+                                    • {job.category_name}
                                 </span>
                             </div>
                         </div>
