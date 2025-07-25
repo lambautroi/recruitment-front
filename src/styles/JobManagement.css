@@ -84,7 +84,7 @@
 .jobs-table th {
     background: #17a2b8;
     color: white;
-    padding: 12px 8px;
+    padding: 8px 6px;
     text-align: center;
     font-weight: 500;
     font-size: 12px;
@@ -96,30 +96,22 @@
     text-align: center;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
+    font-size: 13px;
 }
 
 .jobs-table tr:hover {
     background-color: #f8f9fa;
 }
 
-.job-title {
+.job-title-manager {
     text-align: left !important;
     font-weight: 500;
     color: #333;
-    max-width: 400px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.view-count,
-.applicant-count {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    font-size: 12px;
-    color: #666;
+    font-size: 16px;
 }
 
 .toggle-switch {

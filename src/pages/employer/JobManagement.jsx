@@ -11,7 +11,7 @@ const JobManagement = ({ userInfo }) => {
         currentPage: 1,
         totalPages: 1,
         totalJobs: 0,
-        limit: 10
+        limit: 10,
     });
 
     // Fetch jobs khi component mount
@@ -27,19 +27,21 @@ const JobManagement = ({ userInfo }) => {
                 {
                     params: {
                         page: pagination.currentPage,
-                        limit: pagination.limit
+                        limit: pagination.limit,
                     },
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
                 }
             );
-            
+
             setJobs(response.data.jobs);
-            setPagination(prev => ({
+            setPagination((prev) => ({
                 ...prev,
                 totalPages: response.data.totalPages,
-                totalJobs: response.data.totalJobs
+                totalJobs: response.data.totalJobs,
             }));
         } catch (error) {
             console.error("Lỗi khi lấy danh sách tin tuyển dụng:", error);
@@ -51,21 +53,26 @@ const JobManagement = ({ userInfo }) => {
 
     const handleStatusToggle = async (jobId, currentStatus) => {
         try {
-            const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+            const newStatus =
+                currentStatus === "active" ? "inactive" : "active";
             await axios.put(
                 `http://localhost:3001/api/employer/jobs/${jobId}/status`,
                 { status: newStatus },
                 {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
                 }
             );
-            
+
             // Cập nhật trạng thái trong state
-            setJobs(jobs.map(job => 
-                job._id === jobId ? { ...job, status: newStatus } : job
-            ));
+            setJobs(
+                jobs.map((job) =>
+                    job._id === jobId ? { ...job, status: newStatus } : job
+                )
+            );
         } catch (error) {
             console.error("Lỗi khi cập nhật trạng thái:", error);
             alert("Không thể cập nhật trạng thái tin tuyển dụng");
@@ -79,13 +86,15 @@ const JobManagement = ({ userInfo }) => {
                     `http://localhost:3001/api/employer/jobs/${jobId}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`
-                        }
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
                     }
                 );
-                
+
                 // Xóa job khỏi state
-                setJobs(jobs.filter(job => job._id !== jobId));
+                setJobs(jobs.filter((job) => job._id !== jobId));
                 alert("Đã xóa tin tuyển dụng thành công!");
             } catch (error) {
                 console.error("Lỗi khi xóa tin tuyển dụng:", error);
@@ -99,17 +108,17 @@ const JobManagement = ({ userInfo }) => {
     };
 
     const handleLimitChange = (e) => {
-        setPagination(prev => ({
+        setPagination((prev) => ({
             ...prev,
             limit: parseInt(e.target.value),
-            currentPage: 1
+            currentPage: 1,
         }));
     };
 
     const handlePageChange = (page) => {
-        setPagination(prev => ({
+        setPagination((prev) => ({
             ...prev,
-            currentPage: page
+            currentPage: page,
         }));
     };
 
@@ -142,7 +151,10 @@ const JobManagement = ({ userInfo }) => {
                 {/* Header Controls */}
                 <div className="list-controls">
                     <div className="limit-control">
-                        <select value={pagination.limit} onChange={handleLimitChange}>
+                        <select
+                            value={pagination.limit}
+                            onChange={handleLimitChange}
+                        >
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
@@ -163,8 +175,6 @@ const JobManagement = ({ userInfo }) => {
                                 <th>TIÊU ĐỀ</th>
                                 <th>DANH MỤC TUYỂN DỤNG</th>
                                 <th>THỜI GIAN HẾT HẠN</th>
-                                <th>LƯỢT XEM</th>
-                                <th>NỔI BẬT</th>
                                 <th>TRẠNG THÁI</th>
                                 <th>ỨNG VIÊN</th>
                                 <th>HÀNH ĐỘNG</th>
@@ -173,52 +183,53 @@ const JobManagement = ({ userInfo }) => {
                         <tbody>
                             {jobs.map((job, index) => (
                                 <tr key={job._id}>
-                                    <td>{(pagination.currentPage - 1) * pagination.limit + index + 1}</td>
-                                    <td className="job-title">{job.title}</td>
+                                    <td>
+                                        {(pagination.currentPage - 1) *
+                                            pagination.limit +
+                                            index +
+                                            1}
+                                    </td>
+                                    <td className="job-title-manager">
+                                        {job.title}
+                                    </td>
                                     <td>{job.category_name}</td>
                                     <td>{formatDate(job.expiration_date)}</td>
                                     <td>
-                                        <span className="view-count">
-                                            👁 0<br />
-                                            Xem
-                                        </span>
-                                    </td>
-                                    <td>
                                         <label className="toggle-switch">
                                             <input
                                                 type="checkbox"
-                                                checked={job.featured || false}
-                                                onChange={() => {/* Handle featured toggle */}}
-                                            />
-                                            <span className="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label className="toggle-switch">
-                                            <input
-                                                type="checkbox"
-                                                checked={job.status === 'active'}
-                                                onChange={() => handleStatusToggle(job._id, job.status)}
+                                                checked={
+                                                    job.status === "active"
+                                                }
+                                                onChange={() =>
+                                                    handleStatusToggle(
+                                                        job._id,
+                                                        job.status
+                                                    )
+                                                }
                                             />
                                             <span className="slider"></span>
                                         </label>
                                     </td>
                                     <td>
                                         <span className="applicant-count">
-                                            👤 {job.applicant_count || 0}<br />
+                                            👤 {job.applicant_count || 0}
+                                            <br />
                                             Xem
                                         </span>
                                     </td>
                                     <td className="action-buttons">
-                                        <Link 
+                                        <Link
                                             to={`/employer/jobs/edit/${job._id}`}
                                             className="btn-edit"
                                             title="Chỉnh sửa"
                                         >
-                                            👁
+                                            ✏️
                                         </Link>
                                         <button
-                                            onClick={() => handleDeleteJob(job._id)}
+                                            onClick={() =>
+                                                handleDeleteJob(job._id)
+                                            }
                                             className="btn-delete"
                                             title="Xóa"
                                         >
@@ -234,30 +245,47 @@ const JobManagement = ({ userInfo }) => {
                 {/* Pagination */}
                 <div className="pagination-container">
                     <div className="pagination-info">
-                        Hiển thị {(pagination.currentPage - 1) * pagination.limit + 1} đến {Math.min(pagination.currentPage * pagination.limit, pagination.totalJobs)} trong tổng số {pagination.totalJobs} mục
+                        Hiển thị{" "}
+                        {(pagination.currentPage - 1) * pagination.limit + 1}{" "}
+                        đến{" "}
+                        {Math.min(
+                            pagination.currentPage * pagination.limit,
+                            pagination.totalJobs
+                        )}{" "}
+                        trong tổng số {pagination.totalJobs} mục
                     </div>
                     <div className="pagination-controls">
-                        <button 
-                            onClick={() => handlePageChange(pagination.currentPage - 1)}
+                        <button
+                            onClick={() =>
+                                handlePageChange(pagination.currentPage - 1)
+                            }
                             disabled={pagination.currentPage === 1}
                             className="pagination-btn"
                         >
                             ‹
                         </button>
-                        
+
                         {[...Array(pagination.totalPages)].map((_, index) => (
                             <button
                                 key={index + 1}
                                 onClick={() => handlePageChange(index + 1)}
-                                className={`pagination-btn ${pagination.currentPage === index + 1 ? 'active' : ''}`}
+                                className={`pagination-btn ${
+                                    pagination.currentPage === index + 1
+                                        ? "active"
+                                        : ""
+                                }`}
                             >
                                 {index + 1}
                             </button>
                         ))}
-                        
-                        <button 
-                            onClick={() => handlePageChange(pagination.currentPage + 1)}
-                            disabled={pagination.currentPage === pagination.totalPages}
+
+                        <button
+                            onClick={() =>
+                                handlePageChange(pagination.currentPage + 1)
+                            }
+                            disabled={
+                                pagination.currentPage === pagination.totalPages
+                            }
                             className="pagination-btn"
                         >
                             ›

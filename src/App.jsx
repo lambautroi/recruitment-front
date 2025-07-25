@@ -10,6 +10,7 @@ import CandidateListPage from "./pages/candidate/CandidateListPage";
 import CandidateDetailPage from "./pages/candidate/CandidateDetailPage";
 import EmployerDetailPage from "./pages/employer/EmployerDetailPage";
 import EmployerDashboard from "./pages/employer/EmployerDashboard";
+import JobEdit from "./pages/employer/JobEdit";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                     path="/employer/dashboard"
                     element={<EmployerDashboard />}
                 />
+                <Route path="/employer/jobs/edit/:id" element={<JobEdit />} />
             </Routes>
         </Router>
     );
