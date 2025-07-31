@@ -12,6 +12,7 @@ import EmployerDetailPage from "./pages/employer/EmployerDetailPage";
 import EmployerDashboard from "./pages/employer/EmployerDashboard";
 import JobEdit from "./pages/employer/jobEdit";
 import JobCreate from "./pages/employer/jobCreate";
+import CandidateDashboard from "./pages/candidate/CandidateDashboard";
 
 function App() {
     return (
@@ -36,6 +37,10 @@ function App() {
                 />
                 <Route path="/employer/jobs/edit/:id" element={<JobEdit />} />
                 <Route path="/employer/jobs/create" element={<JobCreate />} />
+                <Route
+                    path="/candidate/dashboard"
+                    element={<CandidateDashboard />}
+                />
             </Routes>
         </Router>
     );

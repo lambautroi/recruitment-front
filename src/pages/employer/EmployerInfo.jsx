@@ -422,7 +422,6 @@ const EmployerInfo = ({ userInfo }) => {
                 </div>
             </div>
 
-            {/* ✅ SECTION ẢNH ĐẠI DIỆN */}
             <div className="logo-section">
                 <h4>Ảnh đại diện doanh nghiệp</h4>
                 <div className="logo-upload-container">

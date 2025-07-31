@@ -67,16 +67,7 @@ export default function JobListPage() {
         }));
     };
 
-    const handleCheckboxChange = (e) => {
-        const { value, checked } = e.target;
-        setFilters((prev) => {
-            const newLevel = checked
-                ? [...prev.level, value]
-                : prev.level.filter((item) => item !== value);
-            return { ...prev, level: newLevel };
-        });
-    };
-
+    
     const clearFilters = () => {
         setFilters({
             search: "",
