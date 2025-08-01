@@ -24,19 +24,19 @@ const CandidateCard = ({ candidate }) => {
                         {candidate.position_name}
                     </p>
                     <div className="candidate-basic-details">
-                        <div className="detail-item">
+                        <div className="detail-item-can">
                             <span className="detail-label">Giới tính:</span>
                             <span className="detail-value">
                                 {candidate.gender}
                             </span>
                         </div>
-                        <div className="detail-item">
+                        <div className="detail-item-can">
                             <span className="detail-label">Học vấn:</span>
                             <span className="detail-value">
                                 {candidate.education_level}
                             </span>
                         </div>
-                        <div className="detail-item">
+                        <div className="detail-item-can">
                             <span className="detail-label">Kinh nghiệm:</span>
                             <span className="detail-value">
                                 {candidate.experience_level}

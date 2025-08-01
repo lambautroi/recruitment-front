@@ -1,10 +1,10 @@
-import Navbar from "../components/homePage/Navbar";
-import IntroSlide from "../components/homePage/IntroSlide";
-import CategorySlide from "../components/homePage/CategorySlide";
-import FeaturedJobSlide from "../components/homePage/FeaturedJobSlide";
-import JobIntroSlide from "../components/homePage/JobIntroSlide";
-import StatsAndEmployerSlide from "../components/homePage/StatsAndEmployerSlide";
-import Footer from "../components/Footer";
+import Navbar from "../../components/homePage/Navbar";
+import IntroSlide from "../../components/homePage/IntroSlide";
+import CategorySlide from "../../components/homePage/CategorySlide";
+import FeaturedJobSlide from "../../components/homePage/FeaturedJobSlide";
+import JobIntroSlide from "../../components/homePage/JobIntroSlide";
+import StatsAndEmployerSlide from "../../components/homePage/StatsAndEmployerSlide";
+import Footer from "../../components/Footer";
 
 export default function HomePage() {
     return (

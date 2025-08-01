@@ -176,7 +176,7 @@ const AppliedJobs = ({ userInfo }) => {
                             </div>
 
                             <div className="card-body">
-                                <div className="job-details">
+                                <div className="job-details-applied">
                                     <div className="detail-item">
                                         <span className="label">
                                             Ngành nghề:

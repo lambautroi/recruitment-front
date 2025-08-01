@@ -34,7 +34,6 @@
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Main Content Layout */
 .candidate-list-content {
     display: flex;
     gap: 0;
@@ -43,7 +42,6 @@
     min-height: 600px;
 }
 
-/* Left Sidebar - Filters */
 .candidate-filters {
     width: 320px;
     min-width: 260px;
@@ -56,93 +54,75 @@
 }
 
 .candidate-filters h3 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 18px;
     color: #1a2a3a;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.clear-filter-btn {
-    font-size: 14px;
-    padding: 4px 12px;
-    background: transparent;
-    color: #666;
-    border: none;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-.clear-filter-btn:hover {
-    color: #1769aa;
-}
-
-.filter-group {
-    margin-bottom: 20px;
-}
-
-.filter-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
 }
 
 .candidate-filters input[type="text"],
 .candidate-filters select {
     width: 100%;
     padding: 10px 12px;
+    margin-bottom: 18px;
     border: 1px solid #dbe2ea;
     border-radius: 4px;
     font-size: 15px;
     background: #f7f9fc;
 }
 
-/* Main Content Area */
+.candidate-filters h4 {
+    font-size: 16px;
+    margin: 18px 0 8px 0;
+    color: #1a2a3a;
+}
+
+.candidate-filters label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #222;
+}
+
+.candidate-filters button {
+    margin-top: 18px;
+    padding: 10px 18px;
+    background: #1769aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.candidate-filters button:hover {
+    background: #1e90ff;
+}
+
 .candidate-list-page {
     flex: 1;
     margin: 32px;
     min-width: 0;
 }
 
-/* Header Controls */
 .candidate-list-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 18px;
     margin-bottom: 24px;
-    padding: 16px 0;
-    border-bottom: 1px solid #e8e8e8;
-}
-
-.header-left,
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.result-text,
-.sort-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
 }
 
 .candidate-list-header select {
     padding: 8px 16px;
-    font-size: 14px;
+    font-size: 15px;
     border-radius: 4px;
     border: 1px solid #dbe2ea;
     background: #f7f9fc;
-    min-width: 120px;
+    margin-left: 8px;
 }
 
-/* Candidate Cards Grid */
 .candidate-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -150,7 +130,6 @@
     margin-top: 20px;
 }
 
-/* Individual Candidate Card */
 .candidate-card {
     background: #fff;
     border-radius: 8px;
@@ -166,7 +145,6 @@
     transform: translateY(-2px);
 }
 
-/* Candidate Header */
 .candidate-header {
     display: flex;
     gap: 16px;
@@ -205,57 +183,6 @@
     font-weight: 500;
 }
 
-.candidate-details {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.candidate-details span {
-    font-size: 12px;
-    color: #666;
-}
-
-.candidate-skills {
-    margin: 16px 2px 16px 2px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.skill-tag {
-    background: #e6f3ff;
-    color: #1769aa;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-/* Candidate Footer */
-.candidate-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
-}
-
-.candidate-location,
-.candidate-salary {
-    font-size: 12px;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-/* No Results */
-.no-results {
-    text-align: center;
-    padding: 40px;
-    color: #666;
-}
 .candidate-basic-details {
     display: flex;
     flex-direction: column;
@@ -263,7 +190,7 @@
     margin-top: 8px;
 }
 
-.detail-item {
+.detail-item-can {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -282,54 +209,42 @@
     font-weight: 600;
 }
 
-@media (max-width: 1200px) {
-    .candidate-cards {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 16px;
-    }
+.candidate-skills {
+    margin: 16px 2px 16px 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
-@media (max-width: 900px) {
-    .candidate-list-content {
-        flex-direction: column;
-    }
-
-    .candidate-filters {
-        width: auto;
-        margin: 20px;
-        padding: 20px;
-    }
-
-    .candidate-list-page {
-        margin: 20px;
-    }
-
-    .candidate-cards {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 16px;
-    }
-
-    .candidate-card {
-        padding: 16px;
-    }
-
-    .candidate-photo {
-        width: 60px;
-        height: 60px;
-    }
+.skill-tag {
+    background: #e6f3ff;
+    color: #1769aa;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
 }
 
-@media (max-width: 600px) {
-    .detail-label {
-        min-width: 60px;
-        font-size: 11px;
-    }
-
-    .detail-value {
-        font-size: 11px;
-    }
-
-    .detail-item {
-        gap: 4px;
-    }
+.candidate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
 }
+
+.candidate-location,
+.candidate-salary {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+

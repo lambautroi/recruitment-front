@@ -243,7 +243,7 @@
     padding: 20px 24px;
 }
 
-.job-details {
+.job-details-applied {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
@@ -407,7 +407,7 @@
         align-items: center;
     }
 
-    .job-details {
+    .job-details-applied {
         grid-template-columns: 1fr;
         gap: 12px;
     }

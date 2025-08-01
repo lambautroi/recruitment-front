@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Navbar from "../components/homePage/Navbar";
-import Footer from "../components/Footer";
-import "../styles/JobDetailPage.css";
+import Navbar from "../../components/homePage/Navbar";
+import Footer from "../../components/Footer";
+import ApplyJobModal from "../../components/ApplyJobModal";
+import "../../styles/JobDetailPage.css";
 
 export default function JobDetailPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userRole, setUserRole] = useState(null);
+    const [candidateInfo, setCandidateInfo] = useState(null);
+    const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+    const [isJobSaved, setIsJobSaved] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [applicationStatus, setApplicationStatus] = useState(null);
+    const [isApplicationLoading, setIsApplicationLoading] = useState(false);
 
     useEffect(() => {
         const fetchJobDetail = async () => {
@@ -27,10 +37,207 @@ export default function JobDetailPage() {
             }
         };
 
+        const checkAuthAndCandidateInfo = async () => {
+            const token = localStorage.getItem("token");
+            const role = localStorage.getItem("role");
+
+            if (token && role === "user") {
+                setIsLoggedIn(true);
+                setUserRole(role);
+
+                try {
+                    const candidateResponse = await axios.get(
+                        "http://localhost:3001/api/candidate/profile",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    setCandidateInfo(candidateResponse.data);
+
+                    const applicationResponse = await axios.get(
+                        `http://localhost:3001/api/candidate/application-status/${id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    setApplicationStatus(applicationResponse.data.status);
+
+                    const savedJobsResponse = await axios.get(
+                        "http://localhost:3001/api/candidate/saved-jobs",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+
+                    const isSaved = savedJobsResponse.data.some(
+                        (saved) => saved.job._id === id
+                    );
+                    setIsJobSaved(isSaved);
+                } catch (error) {
+                    if (error.response?.status === 401) {
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("role");
+                        setIsLoggedIn(false);
+                        setUserRole(null);
+                    }
+                }
+            } else {
+                console.log("Not logged in or not user role");
+            }
+        };
+
         if (id) {
             fetchJobDetail();
+            checkAuthAndCandidateInfo();
         }
     }, [id]);
+
+    // Handle apply job
+    const handleApplyJob = async (applicationData) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.post(
+                "http://localhost:3001/api/candidate/apply-job",
+                applicationData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setApplicationStatus("pending");
+            alert("Ứng tuyển thành công!");
+        } catch (error) {
+            console.error("Error applying for job:", error);
+            const message =
+                error.response?.data?.message || "Có lỗi xảy ra khi ứng tuyển";
+            alert(message);
+            throw error;
+        }
+    };
+
+    // Handle save/unsave job
+    const handleSaveJob = async () => {
+        if (!isLoggedIn || userRole !== "user") {
+            alert(
+                "Bạn cần đăng nhập với tài khoản ứng viên để lưu tin tuyển dụng"
+            );
+            navigate("/login");
+            return;
+        }
+
+        setIsSaving(true);
+
+        try {
+            const token = localStorage.getItem("token");
+
+            if (isJobSaved) {
+                const savedJobsResponse = await axios.get(
+                    "http://localhost:3001/api/candidate/saved-jobs",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                const savedJob = savedJobsResponse.data.find(
+                    (saved) => saved.job._id === id
+                );
+
+                if (savedJob) {
+                    await axios.delete(
+                        `http://localhost:3001/api/candidate/saved-jobs/${savedJob._id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    setIsJobSaved(false);
+                    alert("Đã bỏ lưu tin tuyển dụng");
+                }
+            } else {
+                await axios.post(
+                    "http://localhost:3001/api/candidate/save-job",
+                    { job_id: id },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setIsJobSaved(true);
+                alert("Đã lưu tin tuyển dụng");
+            }
+        } catch (error) {
+            console.error("Error saving job:", error);
+            const message = error.response?.data?.message || "Có lỗi xảy ra";
+            alert(message);
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    // Handle apply button click
+    const handleApplyButtonClick = () => {
+        if (!isLoggedIn || userRole !== "user") {
+            alert("Bạn cần đăng nhập với tài khoản ứng viên để ứng tuyển");
+            return;
+        }
+
+        if (applicationStatus) {
+            alert("Bạn đã ứng tuyển công việc này rồi!");
+            return;
+        }
+
+        if (!candidateInfo?.resume_file) {
+            alert(
+                "Bạn cần tải lên CV trước khi ứng tuyển. Vui lòng cập nhật thông tin cá nhân."
+            );
+            navigate("/candidate/profile");
+            return;
+        }
+
+        setIsApplyModalOpen(true);
+    };
+
+    // Function để render button text dựa trên trạng thái
+    const getApplyButtonText = () => {
+        if (!isLoggedIn || userRole !== "user") {
+            return "Ứng tuyển ngay";
+        }
+
+        if (applicationStatus === "pending") {
+            return "Đã ứng tuyển";
+        } else if (applicationStatus === "accepted") {
+            return "Đã được chấp nhận";
+        } else if (applicationStatus === "rejected") {
+            return "Đã từ chối";
+        }
+
+        return "📝 Ứng tuyển ngay";
+    };
+
+    // Function để render button class
+    const getApplyButtonClass = () => {
+        if (applicationStatus === "pending") {
+            return "apply-button applied-pending";
+        } else if (applicationStatus === "accepted") {
+            return "apply-button applied-accepted";
+        } else if (applicationStatus === "rejected") {
+            return "apply-button applied-rejected";
+        }
+
+        return "apply-button";
+    };
 
     const formatSalaryRange = (salaryRange) => {
         if (salaryRange && salaryRange.includes("-")) {
@@ -122,8 +329,27 @@ export default function JobDetailPage() {
                         </div>
                     </div>
                     <div className="job-actions">
-                        <button className="apply-button">Ứng tuyển ngay</button>
-                        <button className="save-button">💾 Lưu tin</button>
+                        <button
+                            className={getApplyButtonClass()}
+                            onClick={handleApplyButtonClick}
+                            disabled={applicationStatus !== null}
+                        >
+                            {getApplyButtonText()}
+                        </button>
+
+                        <button
+                            className={`save-button ${
+                                isJobSaved ? "saved" : ""
+                            }`}
+                            onClick={handleSaveJob}
+                            disabled={isSaving}
+                        >
+                            {isSaving
+                                ? "⏳ Đang xử lý..."
+                                : isJobSaved
+                                ? "❤️ Đã lưu tin"
+                                : "💾 Lưu tin"}
+                        </button>
                     </div>
                 </div>
 
@@ -457,6 +683,14 @@ export default function JobDetailPage() {
                     </div>
                 </div>
             </div>
+
+            <ApplyJobModal
+                isOpen={isApplyModalOpen}
+                onClose={() => setIsApplyModalOpen(false)}
+                job={job}
+                candidateInfo={candidateInfo}
+                onApply={handleApplyJob}
+            />
 
             <Footer />
         </div>

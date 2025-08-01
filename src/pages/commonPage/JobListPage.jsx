@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/homePage/Navbar";
-import "../styles/JobListPage.css";
-import Footer from "../components/Footer";
+import Navbar from "../../components/homePage/Navbar";
+import "../../styles/JobListPage.css";
+import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -67,7 +67,6 @@ export default function JobListPage() {
         }));
     };
 
-    
     const clearFilters = () => {
         setFilters({
             search: "",
@@ -96,7 +95,6 @@ export default function JobListPage() {
             </div>
 
             <div className="job-list-content">
-                {/* Sidebar: Bộ lọc nâng cao */}
                 <div className="job-filters">
                     <h3>BỘ LỌC NÂNG CAO</h3>
                     <input
@@ -263,11 +261,26 @@ export default function JobListPage() {
                                     <span className="salary-icon">💰</span>
                                     <span className="salary-text">
                                         {(() => {
-                                            if (job.salary_range && job.salary_range.includes('-')) {
-                                                const [minSalary, maxSalary] = job.salary_range.split('-');
-                                                return `Mức lương từ ${new Intl.NumberFormat("vi-VN").format(parseInt(minSalary))} đ đến ${new Intl.NumberFormat("vi-VN").format(parseInt(maxSalary))} đ`;
+                                            if (
+                                                job.salary_range &&
+                                                job.salary_range.includes("-")
+                                            ) {
+                                                const [minSalary, maxSalary] =
+                                                    job.salary_range.split("-");
+                                                return `Mức lương từ ${new Intl.NumberFormat(
+                                                    "vi-VN"
+                                                ).format(
+                                                    parseInt(minSalary)
+                                                )} đ đến ${new Intl.NumberFormat(
+                                                    "vi-VN"
+                                                ).format(
+                                                    parseInt(maxSalary)
+                                                )} đ`;
                                             } else {
-                                                return job.salary_range || "Thỏa thuận";
+                                                return (
+                                                    job.salary_range ||
+                                                    "Thỏa thuận"
+                                                );
                                             }
                                         })()}
                                     </span>

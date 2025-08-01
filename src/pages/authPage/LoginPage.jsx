@@ -24,8 +24,9 @@ export default function LoginPage() {
             const decodedToken = JSON.parse(atob(token.split(".")[1]));
             const userRole = decodedToken.role;
 
-            navigate("/");
+            localStorage.setItem("role", userRole);
 
+            navigate("/");
         } catch (error) {
             alert("Sai thông tin đăng nhập!");
         }

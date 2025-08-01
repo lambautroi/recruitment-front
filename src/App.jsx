@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/commonPage/HomePage";
 import LoginPage from "./pages/authPage/LoginPage";
 import RegisterPage from "./pages/authPage/RegisterPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import JobListPage from "./pages/JobListPage";
-import JobDetailPage from "./pages/JobDetailPage";
-import EmployerListPage from "./pages/employer/EmployerListPage";
-import CandidateListPage from "./pages/candidate/CandidateListPage";
+import JobListPage from "./pages/commonPage/JobListPage";
+import JobDetailPage from "./pages/commonPage/JobDetailPage";
+import EmployerListPage from "./pages/commonPage/EmployerListPage";
+import CandidateListPage from "./pages/commonPage/CandidateListPage";
 import CandidateDetailPage from "./pages/candidate/CandidateDetailPage";
 import EmployerDetailPage from "./pages/employer/EmployerDetailPage";
 import EmployerDashboard from "./pages/employer/EmployerDashboard";

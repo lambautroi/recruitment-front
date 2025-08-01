@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ApplyJobModal from "../../components/ApplyJobModal";
 import "../../styles/SavedJobs.css";
 
 const SavedJobs = ({ userInfo }) => {
@@ -8,10 +9,31 @@ const SavedJobs = ({ userInfo }) => {
     const [error, setError] = useState(null);
     const [filter, setFilter] = useState("all");
     const [sortBy, setSortBy] = useState("newest");
+    const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+    const [selectedJob, setSelectedJob] = useState(null);
+    const [candidateInfo, setCandidateInfo] = useState(null);
+    const [applicationStatuses, setApplicationStatuses] = useState({});
 
     useEffect(() => {
         fetchSavedJobs();
     }, []);
+
+    const fetchCandidateInfo = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const candidateResponse = await axios.get(
+                "http://localhost:3001/api/candidate/profile",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setCandidateInfo(candidateResponse.data);
+        } catch (error) {
+            console.error("Error fetching candidate info:", error);
+        }
+    };
 
     const fetchSavedJobs = async () => {
         try {
@@ -29,8 +51,9 @@ const SavedJobs = ({ userInfo }) => {
                 }
             );
 
-            console.log("Saved jobs data:", response.data);
             setSavedJobs(response.data);
+            const jobIds = response.data.map((saved) => saved.job._id);
+            await fetchApplicationStatuses(jobIds);
         } catch (error) {
             console.error("Error fetching saved jobs:", error);
             setError(
@@ -38,6 +61,36 @@ const SavedJobs = ({ userInfo }) => {
             );
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchApplicationStatuses = async (jobIds) => {
+        try {
+            const token = localStorage.getItem("token");
+            const statusPromises = jobIds.map(async (jobId) => {
+                try {
+                    const response = await axios.get(
+                        `http://localhost:3001/api/candidate/application-status/${jobId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    return { jobId, status: response.data.status };
+                } catch (error) {
+                    return { jobId, status: null };
+                }
+            });
+
+            const statuses = await Promise.all(statusPromises);
+            const statusMap = {};
+            statuses.forEach(({ jobId, status }) => {
+                statusMap[jobId] = status;
+            });
+            setApplicationStatuses(statusMap);
+        } catch (error) {
+            console.error("Error fetching application statuses:", error);
         }
     };
 
@@ -58,7 +111,6 @@ const SavedJobs = ({ userInfo }) => {
                 prev.filter((saved) => saved._id !== savedJobId)
             );
 
-            // Show success message
             showNotification("Đã bỏ lưu công việc thành công!", "success");
         } catch (error) {
             console.error("Error unsaving job:", error);
@@ -66,19 +118,40 @@ const SavedJobs = ({ userInfo }) => {
         }
     };
 
-    const handleApplyJob = async (jobId) => {
+    const handleApplyJob = async (job) => {
+        if (applicationStatuses[job._id]) {
+            alert("Bạn đã ứng tuyển công việc này rồi!");
+            return;
+        }
+
+        if (!candidateInfo?.resume_file) {
+            alert(
+                "Bạn cần tải lên CV trước khi ứng tuyển. Vui lòng cập nhật thông tin cá nhân."
+            );
+            return;
+        }
+
+        setSelectedJob(job);
+        setIsApplyModalOpen(true);
+    };
+
+    const handleSubmitApplication = async (applicationData) => {
         try {
+            const token = localStorage.getItem("token");
             const response = await axios.post(
                 "http://localhost:3001/api/candidate/apply-job",
-                { job_id: jobId },
+                applicationData,
                 {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
+
+            setApplicationStatuses((prev) => ({
+                ...prev,
+                [applicationData.job_id]: "pending",
+            }));
 
             showNotification("Ứng tuyển thành công!", "success");
         } catch (error) {
@@ -86,12 +159,47 @@ const SavedJobs = ({ userInfo }) => {
             const message =
                 error.response?.data?.message || "Có lỗi xảy ra khi ứng tuyển";
             showNotification(message, "error");
+            throw error;
         }
     };
 
     const showNotification = (message, type) => {
-        // Simple notification - có thể dùng toast library
         alert(message);
+    };
+
+    const getApplyButtonText = (jobId, expired) => {
+        if (expired) {
+            return "⏰ Hết hạn";
+        }
+
+        const status = applicationStatuses[jobId];
+        if (status === "pending") {
+            return "⏳ Đã ứng tuyển";
+        } else if (status === "accepted") {
+            return "✅ Đã được chấp nhận";
+        } else if (status === "rejected") {
+            return "❌ Đã từ chối";
+        }
+
+        return "📝 Ứng tuyển ngay";
+    };
+
+    // Function để render button class
+    const getApplyButtonClass = (jobId, expired) => {
+        if (expired) {
+            return "btn-apply disabled";
+        }
+
+        const status = applicationStatuses[jobId];
+        if (status === "pending") {
+            return "btn-apply applied-pending";
+        } else if (status === "accepted") {
+            return "btn-apply applied-accepted";
+        } else if (status === "rejected") {
+            return "btn-apply applied-rejected";
+        }
+
+        return "btn-apply";
     };
 
     const formatDate = (dateString) => {
@@ -248,12 +356,30 @@ const SavedJobs = ({ userInfo }) => {
                                 <div className="card-header-saved">
                                     <div className="job-main-info">
                                         <div className="job-title-section">
-                                            <h3 className="job-title">
+                                            <h3 className="job-title-save">
                                                 {job.title}
                                             </h3>
                                             {expired && (
                                                 <span className="expired-badge">
                                                     Hết hạn
+                                                </span>
+                                            )}
+                                            {applicationStatuses ===
+                                                "pending" && (
+                                                <span className="status-badge pending">
+                                                    Đã ứng tuyển
+                                                </span>
+                                            )}
+                                            {applicationStatuses ===
+                                                "accepted" && (
+                                                <span className="status-badge accepted">
+                                                    Được chấp nhận
+                                                </span>
+                                            )}
+                                            {applicationStatuses ===
+                                                "rejected" && (
+                                                <span className="status-badge rejected">
+                                                    Đã từ chối
                                                 </span>
                                             )}
                                         </div>
@@ -267,12 +393,10 @@ const SavedJobs = ({ userInfo }) => {
                                                         className="company-logo-saved"
                                                     />
                                                 )}
-                                                <span>
-                                                    🏢 {job.employer_name}
-                                                </span>
+                                                <span>{job.employer_name}</span>
                                             </div>
                                             <div className="job-location">
-                                                📍 {job.location_name}
+                                                {job.location_name}
                                             </div>
                                         </div>
                                     </div>
@@ -401,18 +525,23 @@ const SavedJobs = ({ userInfo }) => {
                                         </button>
 
                                         <button
-                                            className={`btn-apply ${
-                                                expired ? "disabled" : ""
-                                            }`}
+                                            className={getApplyButtonClass(
+                                                job._id,
+                                                expired
+                                            )}
                                             onClick={() =>
                                                 !expired &&
-                                                handleApplyJob(job._id)
+                                                !applicationStatuses &&
+                                                handleApplyJob(job)
                                             }
-                                            disabled={expired}
+                                            disabled={
+                                                expired || applicationStatuses
+                                            }
                                         >
-                                            {expired
-                                                ? "⏰ Hết hạn"
-                                                : "📝 Ứng tuyển ngay"}
+                                            {getApplyButtonText(
+                                                job._id,
+                                                expired
+                                            )}
                                         </button>
 
                                         <button
@@ -433,6 +562,14 @@ const SavedJobs = ({ userInfo }) => {
                     })}
                 </div>
             )}
+
+            <ApplyJobModal
+                isOpen={isApplyModalOpen}
+                onClose={() => setIsApplyModalOpen(false)}
+                job={selectedJob}
+                candidateInfo={candidateInfo}
+                onApply={handleSubmitApplication}
+            />
         </div>
     );
 };

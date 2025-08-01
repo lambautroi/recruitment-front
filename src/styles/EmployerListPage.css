@@ -1,4 +1,3 @@
-/* ===== BANNER SECTION ===== */
 .job-list-banner {
     background-image: url("banner-job.jpg");
     background-size: cover;
@@ -13,137 +12,117 @@
     padding-bottom: 48px;
 }
 
-.job-list-banner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-}
-
 .job-list-banner-content {
-    position: relative;
     z-index: 2;
     text-align: left;
+    align-items: flex-start;
 }
 
 .banner-title {
-    font-size: 42px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 44px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.18), 0 1px 0 #fff;
+    letter-spacing: 1px;
+    line-height: 1.1;
 }
 
 .breadcrumb {
-    font-size: 14px;
-    opacity: 0.9;
+    font-size: 18px;
+    font-weight: 500;
+    color: #f0f4ff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-.breadcrumb a {
-    color: white;
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-/* ===== MAIN CONTENT LAYOUT ===== */
 .company-list-content {
     display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 30px;
-    padding: 40px 20px;
-    background-color: #f8f9fa;
+    gap: 0;
+    padding: 0;
+    background: #f8f9fa;
+    min-height: 600px;
 }
 
-/* ===== FILTERS SIDEBAR ===== */
 .company-filters {
-    width: 300px;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    min-width: 260px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    padding: 32px 24px 24px 32px;
+    border-radius: 8px;
+    margin: 32px 0 32px 32px;
     height: fit-content;
-    position: sticky;
-    top: 20px;
 }
 
 .company-filters h3 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
-    color: #2d3748;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 18px;
+    color: #1a2a3a;
 }
 
 .company-filters input,
 .company-filters select {
     width: 100%;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    background: white;
-    transition: border-color 0.3s;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #dbe2ea;
+    border-radius: 4px;
+    font-size: 15px;
+    background: #f7f9fc;
 }
 
-.company-filters input:focus,
-.company-filters select:focus {
-    outline: none;
-    border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+.company-filters h4 {
+    font-size: 16px;
+    margin: 18px 0 8px 0;
+    color: #1a2a3a;
+}
+
+.company-filters label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #222;
 }
 
 .company-filters button {
-    width: 100%;
-    background: #e53e3e;
-    color: white;
+    margin-top: 18px;
+    padding: 10px 18px;
+    background: #1769aa;
+    color: #fff;
     border: none;
-    padding: 12px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
+    border-radius: 4px;
     font-weight: 500;
-    transition: background-color 0.3s;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
 .company-filters button:hover {
-    background: #c53030;
+    background: #1e90ff;
 }
 
-/* ===== COMPANY LIST SECTION ===== */
 .company-list-page {
     flex: 1;
+    margin: 32px;
+    min-width: 0;
 }
 
 .company-list-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 18px;
     margin-bottom: 24px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .company-list-header select {
-    padding: 10px 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    background: white;
-    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: 1px solid #dbe2ea;
+    background: #f7f9fc;
+    margin-left: 8px;
 }
 
-/* ===== COMPANY CARDS GRID ===== */
 .company-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -152,7 +131,6 @@
     align-items: start;
 }
 
-/* ===== INDIVIDUAL COMPANY CARD ===== */
 .company-card-link {
     text-decoration: none;
     color: inherit;
@@ -190,7 +168,6 @@
     z-index: 2;
 }
 
-/* ===== COMPANY LOGO ===== */
 .company-logo-container {
     display: flex;
     justify-content: center;
@@ -214,7 +191,6 @@
     transform: scale(1.05);
 }
 
-/* ===== COMPANY INFO ===== */
 .company-info {
     flex: 1;
     display: flex;
@@ -254,7 +230,6 @@
     gap: 4px;
 }
 
-/* ===== JOB COUNT BADGE ===== */
 .job-count {
     display: inline-block;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -273,230 +248,4 @@
 .company-card:hover .job-count {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-/* ===== LOADING ANIMATION FOR IMAGES ===== */
-.company-logo[src="/employer-logo.png"],
-.company-logo[src=""],
-.company-logo:not([src]) {
-    background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
-        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
-        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    animation: move 0.5s linear infinite;
-}
-
-@keyframes move {
-    0% {
-        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    }
-    100% {
-        background-position: 20px 20px, 20px 30px, 30px 10px, 10px 20px;
-    }
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-/* Tablets */
-@media (max-width: 1200px) {
-    .company-cards {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
-        width: 100%;
-    }
-
-    .company-card {
-        height: 200px;
-        padding: 20px;
-        width: 100%;
-    }
-
-    .company-list-content {
-        padding: 30px 15px;
-    }
-}
-
-/* Small tablets and large phones */
-@media (max-width: 900px) {
-    .company-list-content {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .company-filters {
-        width: 100%;
-        position: static;
-        order: 2;
-    }
-
-    .company-list-page {
-        order: 1;
-        /* ✅ THÊM: */
-        width: 100%;
-    }
-
-    .company-cards {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
-        width: 100%;
-    }
-
-    .company-card {
-        height: 180px;
-        padding: 16px;
-        /* ✅ THÊM: */
-        width: 100%;
-    }
-
-    .company-logo {
-        width: 56px;
-        height: 56px;
-    }
-
-    .company-logo-container {
-        height: 70px;
-    }
-
-    .company-info h3 {
-        font-size: 16px;
-        min-height: 40px;
-    }
-
-    .banner-title {
-        font-size: 36px;
-    }
-
-    .job-list-banner {
-        padding-left: 40px;
-        padding-bottom: 40px;
-    }
-}
-
-/* Mobile phones */
-@media (max-width: 600px) {
-    .company-list-content {
-        padding: 20px 10px;
-    }
-
-    .company-cards {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
-        width: 100%;
-    }
-
-    .company-card {
-        height: 160px;
-        padding: 12px;
-        /* ✅ THÊM: */
-        width: 100%;
-    }
-
-    .company-logo-container {
-        height: 60px;
-        margin-bottom: 12px;
-    }
-
-    .company-logo {
-        width: 48px;
-        height: 48px;
-    }
-
-    .company-info h3 {
-        font-size: 14px;
-        min-height: 36px;
-    }
-
-    .company-industry {
-        font-size: 12px;
-    }
-
-    .company-location {
-        font-size: 11px;
-    }
-
-    .job-count {
-        font-size: 10px;
-        padding: 6px 12px;
-    }
-
-    .banner-title {
-        font-size: 28px;
-    }
-
-    .job-list-banner {
-        padding-left: 20px;
-        padding-bottom: 30px;
-        height: 180px;
-    }
-
-    .company-filters {
-        padding: 20px;
-    }
-
-    .company-list-header {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-    }
-
-    .company-list-header select {
-        width: 100%;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .company-cards {
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
-
-    .company-card {
-        height: 140px;
-        width: 100%;
-    }
-
-    .banner-title {
-        font-size: 24px;
-    }
-
-    .job-list-banner {
-        height: 160px;
-        padding: 20px;
-    }
-}
-
-/* ===== LOADING STATE ===== */
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #718096;
-    font-size: 18px;
-}
-
-.error {
-    text-align: center;
-    padding: 40px;
-    color: #e53e3e;
-    font-size: 18px;
-}
-
-/* ===== EMPTY STATE ===== */
-.no-companies {
-    text-align: center;
-    padding: 60px 20px;
-    color: #718096;
-}
-
-.no-companies h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #2d3748;
-}
-
-.no-companies p {
-    font-size: 16px;
-    margin: 0;
 }
