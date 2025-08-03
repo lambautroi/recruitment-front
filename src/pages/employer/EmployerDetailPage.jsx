@@ -58,7 +58,7 @@ const EmployerDetailPage = () => {
     };
 
     return (
-        <div>
+        <div className = "employer-detail-page">
             <Navbar />
             <div className="employer-detail-banner">
                 <div className="employer-detail-banner-content">

@@ -56,7 +56,7 @@ const CandidateDashboard = () => {
     }
 
     return (
-        <div>
+        <div className="candidate-dashboard-container">
             <Navbar />
             <div className="candidate-dashboard">
                 <div className="dashboard-container">

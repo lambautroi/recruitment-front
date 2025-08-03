@@ -447,10 +447,15 @@ const CandidateInfo = ({ userInfo }) => {
                 <input
                     type="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    value={formData.email || userInfo?.email || ""}
+                    disabled
+                    className="disabled-input"
                     required
                 />
+                <small className="input-note">
+                    Email liên hệ lấy từ tài khoản đăng nhập và không thể thay
+                    đổi
+                </small>
             </div>
 
             <div className="form-group">
@@ -489,18 +494,6 @@ const CandidateInfo = ({ userInfo }) => {
                                 {location.location_name}
                             </option>
                         ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Quận/Huyện *</label>
-                    <select>
-                        <option value="">Chọn quận/huyện</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Xã/Phường *</label>
-                    <select>
-                        <option value="">Chọn xã/phường</option>
                     </select>
                 </div>
             </div>

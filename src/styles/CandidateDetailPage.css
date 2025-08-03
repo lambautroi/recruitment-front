@@ -1,317 +1,380 @@
-.candidate-detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-}
-
-/* Header Section */
-.candidate-header {
-    background: white;
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-.candidate-detail-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: rgb(255, 255, 255);
-    padding: 40px 0;
-    margin: 70px 0 30px 0;
-}
-
-.candidate-detail-banner-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-.candidate-avatar {
-    flex-shrink: 0;
-}
-
-.candidate-avatar img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #e9ecef;
-    object-fit: cover;
-}
-
-.candidate-basic-info {
-    flex: 1;
-}
-
-.candidate-name-section h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #343a40;
-    margin: 0 0 8px 0;
-}
-
-.candidate-location {
-    color: #6c757d;
-    font-size: 14px;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.candidate-position {
-    font-size: 18px;
-    color: #495057;
-    margin: 0;
-}
-
-.status-badge {
-    background: #28a745;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.candidate-actions {
-    flex-shrink: 0;
-}
-
-.btn-contact {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-contact:hover {
-    background: #0056b3;
-}
-
-/* Main Content Layout */
-.candidate-detail-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
-
-/* Left Column - Main Content */
-.candidate-main-content {
-    background: white;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.candidate-section {
-    margin-bottom: 30px;
-}
-
-.candidate-section:last-child {
-    margin-bottom: 0;
-}
-
-.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #343a40;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e9ecef;
-}
-
-.section-content p {
-    color: #495057;
-    line-height: 1.6;
-    margin: 0;
-}
-
-.skills-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.skill-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 0;
-}
-
-.skill-icon {
-    color: #007bff;
-    font-size: 12px;
-    width: 16px;
-}
-
-.skill-text {
-    color: #495057;
-    font-size: 15px;
-}
-
-/* Right Column - Sidebar */
-.candidate-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.candidate-info-card {
-    background: white;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.info-card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #343a40;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.info-item:last-child {
-    margin-bottom: 0;
-}
-
-.info-icon {
-    font-size: 20px;
-    width: 24px;
-    margin-top: 2px;
-}
-
-.info-content {
-    flex: 1;
-}
-
-.info-label {
-    font-weight: 600;
-    color: #495057;
-    margin-bottom: 4px;
-    font-size: 14px;
-}
-
-.info-value {
-    color: #343a40;
-    font-size: 15px;
-}
-
-.info-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.info-sub {
-    font-size: 13px;
-    color: #6c757d;
-    margin-top: 8px;
-}
-
-/* Work Info */
-.candidate-work-info {
-    background: white;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.work-info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 15px;
-}
-
-.work-info-item:last-child {
-    margin-bottom: 0;
-}
-
-.work-label {
-    font-size: 14px;
-    color: #6c757d;
-    font-weight: 500;
-}
-
-.work-value {
-    font-size: 15px;
-    color: #343a40;
-    font-weight: 600;
-}
-
-/* Contact Section */
-.contact-section {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.btn-contact-email {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s;
-    width: 100%;
-}
-
-.btn-contact-email:hover {
-    background: #218838;
-}
-
-/* Loading & Error States */
-.loading,
-.error {
-    text-align: center;
-    padding: 60px 20px;
-    font-size: 18px;
-    color: #6c757d;
-}
-
-.error {
-    color: #dc3545;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .candidate-detail-content {
-        grid-template-columns: 1fr;
+.candidate-detail-page {
+    .candidate-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
     }
 
+    /* Header Section */
     .candidate-header {
-        flex-direction: column;
-        text-align: center;
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+    .candidate-detail-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: rgb(255, 255, 255);
+        padding: 40px 0;
+        margin: 70px 0 30px 0;
+    }
+
+    .candidate-detail-banner-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    .candidate-avatar {
+        flex-shrink: 0;
     }
 
     .candidate-avatar img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid #e9ecef;
+        object-fit: cover;
+    }
+
+    .candidate-basic-info {
+        flex: 1;
     }
 
     .candidate-name-section h1 {
-        font-size: 28px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #343a40;
+        margin: 0 0 8px 0;
+    }
+
+    .candidate-location {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .candidate-position {
+        font-size: 18px;
+        color: #495057;
+        margin: 0;
+    }
+
+    .status-badge {
+        background: #28a745;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .candidate-actions {
+        flex-shrink: 0;
+    }
+
+    .btn-contact {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-contact:hover {
+        background: #0056b3;
+    }
+    .btn-back-link {
+        background: none;
+        border: none;
+        color: #6366f1;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .btn-back-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn-contact.disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .preference-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .preference-tag {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 14px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .btn-contact-email,
+    .btn-contact-phone {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        background: #6366f1;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
+
+    .btn-contact-email:hover,
+    .btn-contact-phone:hover {
+        background: #4f46e5;
+    }
+
+    .btn-contact-phone {
+        background: #10b981;
+    }
+
+    .btn-contact-phone:hover {
+        background: #059669;
+    }
+    /* Main Content Layout */
+    .candidate-detail-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+
+    /* Left Column - Main Content */
+    .candidate-main-content {
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .candidate-section {
+        margin-bottom: 30px;
+    }
+
+    .candidate-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #343a40;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .section-content p {
+        color: #495057;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .skills-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+    }
+
+    .skill-icon {
+        color: #007bff;
+        font-size: 12px;
+        width: 16px;
+    }
+
+    .skill-text {
+        color: #495057;
+        font-size: 15px;
+    }
+
+    /* Right Column - Sidebar */
+    .candidate-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .candidate-info-card {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #343a40;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-icon {
+        font-size: 20px;
+        width: 24px;
+        margin-top: 2px;
+    }
+
+    .info-content {
+        flex: 1;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .info-value {
+        color: #343a40;
+        font-size: 15px;
+    }
+
+    .info-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .info-sub {
+        font-size: 13px;
+        color: #6c757d;
+        margin-top: 8px;
+    }
+
+    /* Work Info */
+    .candidate-work-info {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .work-info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 15px;
+    }
+
+    .work-info-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .work-label {
+        font-size: 14px;
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .work-value {
+        font-size: 15px;
+        color: #343a40;
+        font-weight: 600;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .btn-contact-email {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s;
+        width: 100%;
+    }
+
+    .btn-contact-email:hover {
+        background: #218838;
+    }
+
+    /* Loading & Error States */
+    .loading,
+    .error {
+        text-align: center;
+        padding: 60px 20px;
+        font-size: 18px;
+        color: #6c757d;
+    }
+
+    .error {
+        color: #dc3545;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .candidate-detail-content {
+            grid-template-columns: 1fr;
+        }
+
+        .candidate-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .candidate-avatar img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .candidate-name-section h1 {
+            font-size: 28px;
+        }
     }
 }

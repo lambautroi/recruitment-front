@@ -53,7 +53,7 @@ const EmployerDashboard = () => {
     }
 
     return (
-        <div>
+        <div className="employer-dashboard-page">
             <Navbar />
             <div className="employer-dashboard">
                 <div className="dashboard-container">

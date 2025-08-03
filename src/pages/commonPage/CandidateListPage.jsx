@@ -77,7 +77,7 @@ const CandidateListPage = () => {
     };
 
     return (
-        <div>
+        <div className="candidate-list-page-container">
             <Navbar />
             <div className="job-list-banner">
                 <div className="job-list-banner-content">

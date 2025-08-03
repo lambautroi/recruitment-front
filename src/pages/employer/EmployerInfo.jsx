@@ -151,12 +151,10 @@ const EmployerInfo = ({ userInfo }) => {
         try {
             let logoUrl = employerData.employer_logo;
 
-            // Upload logo nếu có file mới
             if (logoFile) {
                 logoUrl = await uploadLogo();
             }
 
-            // ✅ LỌC DỮ LIỆU TRƯỚC KHI GỬI - BỎ CÁC FIELD TRỐNG
             const dataToSend = {};
 
             Object.keys(employerData).forEach((key) => {
@@ -166,7 +164,6 @@ const EmployerInfo = ({ userInfo }) => {
                 }
             });
 
-            // Thêm logo URL
             if (logoUrl) {
                 dataToSend.employer_logo = logoUrl;
             }
@@ -183,7 +180,6 @@ const EmployerInfo = ({ userInfo }) => {
             );
 
             alert("Cập nhật thông tin thành công!");
-            // ✅ Reload lại data từ server
             await fetchEmployerData();
             setLogoFile(null);
         } catch (error) {
@@ -393,7 +389,6 @@ const EmployerInfo = ({ userInfo }) => {
         <div className="info-section">
             <h3>Cài đặt tài khoản</h3>
 
-            {/* ✅ SECTION THÔNG TIN TÀI KHOẢN */}
             <div className="account-info-section">
                 <h4>Thông tin tài khoản</h4>
                 <div className="form-grid">
@@ -460,7 +455,6 @@ const EmployerInfo = ({ userInfo }) => {
                 </div>
             </div>
 
-            {/* ✅ SECTION THÔNG TIN LIÊN HỆ HIỂN THỊ */}
             <div className="contact-display-section">
                 <h4>Hiển thị công khai</h4>
                 <div className="form-grid">

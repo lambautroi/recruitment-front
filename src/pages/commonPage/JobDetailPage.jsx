@@ -671,15 +671,6 @@ export default function JobDetailPage() {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="sidebar-section apply-section">
-                            <button className="apply-button-sidebar">
-                                Ứng tuyển ngay
-                            </button>
-                            <button className="save-button-sidebar">
-                                💾 Lưu tin tuyển dụng
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>

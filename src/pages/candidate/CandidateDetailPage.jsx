@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../components/homePage/Navbar";
 import Footer from "../../components/Footer";
 import "../../styles/CandidateDetailPage.css";
@@ -7,9 +7,12 @@ import axios from "axios";
 
 const CandidateDetailPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
     const [candidate, setCandidate] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const isEmployerView = location.pathname.startsWith("/employer/");
 
     useEffect(() => {
         const fetchCandidateDetail = async () => {
@@ -29,11 +32,18 @@ const CandidateDetailPage = () => {
         fetchCandidateDetail();
     }, [id]);
 
+    const handleGoBack = () => {
+        if (isEmployerView) {
+            navigate(-1);
+        } else {
+            navigate("/candidates");
+        }
+    };
+
     if (loading) return <div className="loading">Đang tải...</div>;
     if (error) return <div className="error">{error}</div>;
     if (!candidate) return <div className="error">Không tìm thấy ứng viên</div>;
 
-    // Format ngày sinh
     const formatBirthDate = (dateString) => {
         if (!dateString) return "Chưa cập nhật";
         const date = new Date(dateString);
@@ -41,17 +51,34 @@ const CandidateDetailPage = () => {
     };
 
     return (
-        <div>
-            <Navbar />
+        <div className="candidate-detail-page">
+            {!isEmployerView && <Navbar />}
             <div className="candidate-detail-banner">
                 <div className="candidate-detail-banner-content">
                     <div className="breadcrumb">
-                        <Link to="/">Trang chủ</Link> &gt;
-                        <Link to="/jobs">Danh sách tuyển dụng</Link> &gt; Chi
-                        tiết ứng viên
+                        {isEmployerView ? (
+                            <>
+                                <button
+                                    onClick={handleGoBack}
+                                    className="btn-back-link"
+                                >
+                                    ← Quay lại danh sách ứng viên
+                                </button>
+                                <span> &gt; Chi tiết ứng viên</span>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/">Trang chủ</Link> &gt;
+                                <Link to="/candidates">
+                                    Danh sách ứng viên
+                                </Link>{" "}
+                                &gt; Chi tiết ứng viên
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
+
             <div className="candidate-detail-container">
                 <div className="candidate-header">
                     <div className="candidate-avatar">
@@ -82,14 +109,25 @@ const CandidateDetailPage = () => {
                         </div>
                     </div>
                     <div className="candidate-actions">
-                        <button className="btn-contact">Xem CV Ứng Viên</button>
+                        {candidate.resume_file ? (
+                            <a
+                                href={`http://localhost:3001${candidate.resume_file}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-contact"
+                            >
+                                📄 Xem CV Ứng Viên
+                            </a>
+                        ) : (
+                            <button className="btn-contact disabled" disabled>
+                                Chưa có CV
+                            </button>
+                        )}
                     </div>
                 </div>
 
                 <div className="candidate-detail-content">
-                    {/* Left Column - Main Content */}
                     <div className="candidate-main-content">
-                        {/* Career Objective */}
                         {candidate.career_objective && (
                             <section className="candidate-section">
                                 <h2 className="section-title">
@@ -101,7 +139,6 @@ const CandidateDetailPage = () => {
                             </section>
                         )}
 
-                        {/* Work Preference */}
                         {candidate.work_preference &&
                             candidate.work_preference.length > 0 && (
                                 <section className="candidate-section">
@@ -118,7 +155,6 @@ const CandidateDetailPage = () => {
                                 </section>
                             )}
 
-                        {/* Professional Skills */}
                         {candidate.professional_skills &&
                             candidate.professional_skills.length > 0 && (
                                 <section className="candidate-section">
@@ -145,7 +181,6 @@ const CandidateDetailPage = () => {
                                 </section>
                             )}
 
-                        {/* Soft Skills */}
                         {candidate.soft_skills &&
                             candidate.soft_skills.length > 0 && (
                                 <section className="candidate-section">
@@ -171,9 +206,25 @@ const CandidateDetailPage = () => {
                                     </div>
                                 </section>
                             )}
+                        {candidate.skills && candidate.skills.length > 0 && (
+                            <section className="candidate-section">
+                                <h2 className="section-title">Kỹ năng khác</h2>
+                                <div className="skills-list">
+                                    {candidate.skills.map((skill, index) => (
+                                        <div key={index} className="skill-item">
+                                            <span className="skill-icon">
+                                                ▶
+                                            </span>
+                                            <span className="skill-text">
+                                                {skill}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
 
-                    {/* Right Column - Personal Info */}
                     <div className="candidate-sidebar">
                         <div className="candidate-info-card">
                             <h3 className="info-card-title">
@@ -236,7 +287,6 @@ const CandidateDetailPage = () => {
                             </div>
                         </div>
 
-                        {/* Work Info */}
                         <div className="candidate-work-info">
                             <h3 className="section-title">
                                 Thông tin công việc
@@ -274,22 +324,35 @@ const CandidateDetailPage = () => {
                                     Mức lương mong muốn:
                                 </span>
                                 <span className="work-value">
-                                    {candidate.salary_expectation}
+                                    {candidate.salary_expectation
+                                        ? `${candidate.salary_expectation.toLocaleString()} VNĐ`
+                                        : "Thỏa thuận"}
                                 </span>
                             </div>
                         </div>
-
-                        {/* Contact Button */}
-                        <div className="contact-section">
-                            <button className="btn-contact-email">
-                                📧 Gửi Email liên hệ
-                            </button>
-                        </div>
+                        {isEmployerView && (
+                            <div className="contact-section">
+                                <a
+                                    href={`mailto:${candidate.email}`}
+                                    className="btn-contact-email"
+                                >
+                                    📧 Gửi Email liên hệ
+                                </a>
+                                {candidate.phone && (
+                                    <a
+                                        href={`tel:${candidate.phone}`}
+                                        className="btn-contact-phone"
+                                    >
+                                        📞 Gọi điện thoại
+                                    </a>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
 
-            <Footer />
+            {!isEmployerView && <Footer />}
         </div>
     );
 };
