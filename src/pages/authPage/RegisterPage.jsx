@@ -10,6 +10,7 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [role, setRole] = useState("user");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const register = async () => {
@@ -17,6 +18,24 @@ export default function RegisterPage() {
             alert("Mật khẩu xác nhận không khớp!");
             return;
         }
+
+        if (
+            !fullName.trim() ||
+            !email.trim() ||
+            !phone.trim() ||
+            !password.trim()
+        ) {
+            alert("Vui lòng điền đầy đủ thông tin!");
+            return;
+        }
+
+        if (password.length < 6) {
+            alert("Mật khẩu phải có ít nhất 6 ký tự!");
+            return;
+        }
+
+        setLoading(true);
+
         try {
             const res = await axios.post(
                 "http://localhost:3001/api/auth/register",
@@ -29,10 +48,22 @@ export default function RegisterPage() {
                     role,
                 }
             );
+
             alert("Đăng ký thành công!");
-            navigate("/login");
+
+            if (res.data.redirect) {
+                navigate("/login");
+            } else {
+                navigate("/login");
+            }
         } catch (error) {
-            alert("Có lỗi xảy ra khi đăng ký!");
+            console.error("Registration error:", error);
+
+            const errorMessage =
+                error.response?.data?.message || "Có lỗi xảy ra khi đăng ký!";
+            alert(errorMessage);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -46,6 +77,7 @@ export default function RegisterPage() {
                     placeholder="Tên người ứng tuyển / Tên doanh nghiệp"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
+                    disabled={loading}
                 />
             </div>
             <div className="auth-form-group">
@@ -55,6 +87,7 @@ export default function RegisterPage() {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
                 />
             </div>
             <div className="auth-form-group">
@@ -64,15 +97,17 @@ export default function RegisterPage() {
                     placeholder="Số điện thoại"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    disabled={loading}
                 />
             </div>
             <div className="auth-form-group">
                 <input
                     type="password"
                     className="form-control"
-                    placeholder="Mật khẩu"
+                    placeholder="Mật khẩu (tối thiểu 6 ký tự)"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={loading}
                 />
             </div>
             <div className="auth-form-group">
@@ -82,6 +117,7 @@ export default function RegisterPage() {
                     placeholder="Xác nhận mật khẩu"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    disabled={loading}
                 />
             </div>
             <div className="auth-form-group">
@@ -89,19 +125,21 @@ export default function RegisterPage() {
                     className="form-control"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
+                    disabled={loading}
                 >
                     <option value="user">Người ứng tuyển</option>
                     <option value="employer">Doanh nghiệp</option>
                 </select>
             </div>
-            <button className="auth-btn" onClick={register}>
-                Đăng ký
+            <button className="auth-btn" onClick={register} disabled={loading}>
+                {loading ? "Đang đăng ký..." : "Đăng ký"}
             </button>
             <div className="auth-link-group">
                 <span>Đã có tài khoản? </span>
                 <button
                     className="auth-link-btn"
                     onClick={() => navigate("/login")}
+                    disabled={loading}
                 >
                     Đăng nhập
                 </button>

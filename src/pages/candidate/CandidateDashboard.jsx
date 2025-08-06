@@ -60,7 +60,6 @@ const CandidateDashboard = () => {
             <Navbar />
             <div className="candidate-dashboard">
                 <div className="dashboard-container">
-                    {/* Sidebar */}
                     <div className="dashboard-sidebar">
                         <div className="sidebar-header">
                             <h3>Thông tin người ứng tuyển</h3>
@@ -97,7 +96,6 @@ const CandidateDashboard = () => {
                         </nav>
                     </div>
 
-                    {/* Main Content */}
                     <div className="dashboard-content">
                         {renderContent()}
                     </div>

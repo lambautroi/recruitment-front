@@ -104,6 +104,12 @@ const CandidateInfo = ({ userInfo }) => {
             setAvatarPreview(data.profile_picture || "");
         } catch (error) {
             console.error("Error fetching candidate data:", error);
+
+            if (error.response?.status === 401) {
+                alert("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại");
+                localStorage.removeItem("token");
+                window.location.href = "/login";
+            }
         } finally {
             setLoading(false);
         }
@@ -134,6 +140,20 @@ const CandidateInfo = ({ userInfo }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === "birth_date") {
+            if (value) {
+                const selectedDate = new Date(value);
+                const today = new Date();
+                const age = today.getFullYear() - selectedDate.getFullYear();
+
+                if (age < 16 || age > 100) {
+                    alert("Tuổi phải từ 16 đến 100");
+                    return;
+                }
+            }
+        }
+
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -265,8 +285,9 @@ const CandidateInfo = ({ userInfo }) => {
             let avatarUrl = formData.profile_picture;
             let cvUrl = formData.resume_file;
 
+            // Upload files trước
             if (avatarFile) {
-                avatarUrl = await uploadAvatar();
+                vatarUrl = await uploadAvatar();
             }
 
             if (cvFile) {
@@ -274,10 +295,33 @@ const CandidateInfo = ({ userInfo }) => {
             }
 
             const dataToSend = {};
+
             Object.keys(formData).forEach((key) => {
                 const value = formData[key];
+
                 if (value !== "" && value !== null && value !== undefined) {
-                    dataToSend[key] = value;
+                    if (key === "birth_date") {
+                        if (value) {
+                            try {
+                                const dateValue = new Date(value);
+                                if (!isNaN(dateValue.getTime())) {
+                                    dataToSend[key] = value;
+                                }
+                            } catch (error) {
+                                console.error("Invalid birth_date:", value);
+                            }
+                        }
+                    } else if (Array.isArray(value)) {
+                        if (value.length > 0) {
+                            dataToSend[key] = value;
+                        }
+                    } else if (typeof value === "string") {
+                        if (value.trim() !== "") {
+                            dataToSend[key] = value.trim();
+                        }
+                    } else {
+                        dataToSend[key] = value;
+                    }
                 }
             });
 
@@ -288,7 +332,7 @@ const CandidateInfo = ({ userInfo }) => {
                 dataToSend.resume_file = cvUrl;
             }
 
-            await axios.put(
+            const response = await axios.put(
                 "http://localhost:3001/api/candidate/profile",
                 dataToSend,
                 {
@@ -296,6 +340,7 @@ const CandidateInfo = ({ userInfo }) => {
                         Authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
+                        "Content-Type": "application/json",
                     },
                 }
             );
@@ -305,12 +350,22 @@ const CandidateInfo = ({ userInfo }) => {
             setAvatarFile(null);
             setCvFile(null);
         } catch (error) {
-            console.error("Error updating candidate data:", error);
-            alert(
-                `Có lỗi xảy ra: ${
-                    error.response?.data?.message || error.message
-                }`
-            );
+            let errorMessage = "Có lỗi xảy ra khi cập nhật thông tin";
+
+            if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+
+                if (error.response.data.details) {
+                    const details = error.response.data.details
+                        .map((d) => d.message)
+                        .join(", ");
+                    errorMessage += `\nChi tiết: ${details}`;
+                }
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            alert(errorMessage);
         } finally {
             setSaving(false);
         }
@@ -693,7 +748,6 @@ const CandidateInfo = ({ userInfo }) => {
         <div className="section-content">
             <h3>Cài đặt tài khoản</h3>
 
-            {/* Thông tin tài khoản */}
             <div className="account-info-section">
                 <h4>Thông tin tài khoản</h4>
                 <div className="form-grid">
@@ -864,12 +918,10 @@ const CandidateInfo = ({ userInfo }) => {
 
     return (
         <div className="candidate-info">
-            {/* Header với tabs */}
             <div className="info-header">
                 <h2>Thông tin người ứng tuyển</h2>
             </div>
 
-            {/* Navigation tabs */}
             <div className="section-tabs">
                 <button
                     className={`tab-button ${
@@ -877,6 +929,7 @@ const CandidateInfo = ({ userInfo }) => {
                     }`}
                     onClick={() => setActiveSection("general")}
                 >
+                    <span className="nav-icon">👤</span>
                     Thông tin chung
                 </button>
                 <button
@@ -885,6 +938,7 @@ const CandidateInfo = ({ userInfo }) => {
                     }`}
                     onClick={() => setActiveSection("contact")}
                 >
+                    <span className="nav-icon">📞</span>
                     Thông tin liên hệ
                 </button>
                 <button
@@ -893,7 +947,8 @@ const CandidateInfo = ({ userInfo }) => {
                     }`}
                     onClick={() => setActiveSection("education")}
                 >
-                    Trình độ học vấn, kỹ năng bản thân
+                    <span className="nav-icon">🎓</span>
+                    Trình độ học vấn
                 </button>
                 <button
                     className={`tab-button ${
@@ -901,7 +956,8 @@ const CandidateInfo = ({ userInfo }) => {
                     }`}
                     onClick={() => setActiveSection("skills")}
                 >
-                    Học vấn/bằng cấp và quá trình làm việc
+                    <span className="nav-icon">💼</span>
+                    Kỹ năng & Kinh nghiệm
                 </button>
                 <button
                     className={`tab-button ${
@@ -909,26 +965,23 @@ const CandidateInfo = ({ userInfo }) => {
                     }`}
                     onClick={() => setActiveSection("settings")}
                 >
+                    <span className="nav-icon">⚙️</span>
                     Cài đặt tài khoản
                 </button>
             </div>
 
-            {/* Content */}
-            <form className="candidate-form">
-                {renderContent()}
+            <form className="candidate-form">{renderContent()}</form>
 
-                {/* Save button */}
-                <div className="form-actions">
-                    <button
-                        type="button"
-                        className="btn-save"
-                        onClick={handleSave}
-                        disabled={saving || uploadingAvatar || uploadingCV}
-                    >
-                        {saving ? "Đang lưu..." : "Lưu thay đổi"}
-                    </button>
-                </div>
-            </form>
+            <div className="form-actions">
+                <button
+                    type="button"
+                    className="btn-save"
+                    onClick={handleSave}
+                    disabled={saving || uploadingAvatar || uploadingCV}
+                >
+                    {saving ? "Đang lưu..." : "💾 Lưu thay đổi"}
+                </button>
+            </div>
         </div>
     );
 };

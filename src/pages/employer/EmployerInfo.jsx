@@ -49,7 +49,13 @@ const EmployerInfo = ({ userInfo }) => {
 
     const fetchEmployerData = async () => {
         try {
+            setLoading(true);
             const token = localStorage.getItem("token");
+
+            if (!token) {
+                throw new Error("No authentication token found");
+            }
+
             const response = await axios.get(
                 `http://localhost:3001/api/employer/profile`,
                 {
@@ -58,6 +64,7 @@ const EmployerInfo = ({ userInfo }) => {
             );
 
             const data = response.data;
+
             const formattedData = {
                 employer_name: data.employer_name || "",
                 employer_description: data.employer_description || "",
@@ -85,6 +92,16 @@ const EmployerInfo = ({ userInfo }) => {
             setLogoPreview(data.employer_logo || "");
         } catch (error) {
             console.error("Error fetching employer data:", error);
+
+            if (error.response?.status === 404) {
+                console.log(
+                    "Employer not found, will be created on first save"
+                );
+            } else if (error.response?.status === 401) {
+                alert("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại");
+            } else {
+                alert("Không thể tải thông tin doanh nghiệp");
+            }
         } finally {
             setLoading(false);
         }
@@ -160,7 +177,13 @@ const EmployerInfo = ({ userInfo }) => {
             Object.keys(employerData).forEach((key) => {
                 const value = employerData[key];
                 if (value !== "" && value !== null && value !== undefined) {
-                    dataToSend[key] = value;
+                    if (typeof value === "string") {
+                        if (value.trim() !== "") {
+                            dataToSend[key] = value.trim();
+                        }
+                    } else {
+                        dataToSend[key] = value;
+                    }
                 }
             });
 
@@ -168,14 +191,15 @@ const EmployerInfo = ({ userInfo }) => {
                 dataToSend.employer_logo = logoUrl;
             }
 
-            console.log("Sending data:", dataToSend);
-
             const token = localStorage.getItem("token");
             const response = await axios.put(
                 "http://localhost:3001/api/employer/profile",
                 dataToSend,
                 {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
                 }
             );
 
@@ -183,12 +207,15 @@ const EmployerInfo = ({ userInfo }) => {
             await fetchEmployerData();
             setLogoFile(null);
         } catch (error) {
-            console.error("Error updating employer data:", error);
-            alert(
-                `Có lỗi xảy ra: ${
-                    error.response?.data?.message || error.message
-                }`
-            );
+            let errorMessage = "Có lỗi xảy ra khi cập nhật thông tin";
+
+            if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            alert(errorMessage);
         } finally {
             setSaving(false);
         }
@@ -347,18 +374,6 @@ const EmployerInfo = ({ userInfo }) => {
                 </div>
 
                 <div className="form-group">
-                    <label>Email liên hệ *</label>
-                    <input
-                        type="email"
-                        value={employerData.email}
-                        onChange={(e) =>
-                            handleInputChange("email", e.target.value)
-                        }
-                        placeholder="VD: contact@company.com"
-                    />
-                </div>
-
-                <div className="form-group">
                     <label>Website</label>
                     <input
                         type="url"
@@ -505,7 +520,6 @@ const EmployerInfo = ({ userInfo }) => {
                 <h2>Thông tin doanh nghiệp</h2>
             </div>
 
-            {/* Sub Tabs */}
             <div className="sub-tabs">
                 <button
                     className={`sub-tab ${
