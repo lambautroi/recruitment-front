@@ -13,6 +13,10 @@ const JobManagement = ({ userInfo }) => {
         totalJobs: 0,
         limit: 10,
     });
+    const [sortConfig, setSortConfig] = useState({
+        sortBy: "createdAt",
+        sortOrder: "desc",
+    });
     const [selectedJobId, setSelectedJobId] = useState(null);
     const [applicants, setApplicants] = useState([]);
     const [jobInfo, setJobInfo] = useState(null);
@@ -27,7 +31,7 @@ const JobManagement = ({ userInfo }) => {
 
     useEffect(() => {
         fetchEmployerJobs();
-    }, [pagination.currentPage, pagination.limit]);
+    }, [pagination.currentPage, pagination.limit, sortConfig]);
 
     useEffect(() => {
         if (selectedJobId) {
@@ -49,6 +53,8 @@ const JobManagement = ({ userInfo }) => {
                     params: {
                         page: pagination.currentPage,
                         limit: pagination.limit,
+                        sortBy: sortConfig.sortBy,
+                        sortOrder: sortConfig.sortOrder,
                     },
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem(
@@ -211,6 +217,15 @@ const JobManagement = ({ userInfo }) => {
                 alert("Không thể xóa tin tuyển dụng");
             }
         }
+    };
+
+    const handleSortChange = (e) => {
+        const [field, order] = e.target.value.split("-");
+        setSortConfig({
+            sortBy: field,
+            sortOrder: order,
+        });
+        setPagination((prev) => ({ ...prev, currentPage: 1 })); // Reset to first page
     };
 
     const formatDate = (dateString) => {
@@ -564,6 +579,39 @@ const JobManagement = ({ userInfo }) => {
                             </select>
                             <span>Dữ liệu/Trang</span>
                         </div>
+
+                        <div className="sort-control">
+                            <label>Sắp xếp:</label>
+                            <select
+                                value={`${sortConfig.sortBy}-${sortConfig.sortOrder}`}
+                                onChange={handleSortChange}
+                                className="sort-select"
+                            >
+                                <option value="createdAt-desc">
+                                    Ngày tạo (Mới nhất)
+                                </option>
+                                <option value="createdAt-asc">
+                                    Ngày tạo (Cũ nhất)
+                                </option>
+                                <option value="title-asc">Tiêu đề (A-Z)</option>
+                                <option value="title-desc">
+                                    Tiêu đề (Z-A)
+                                </option>
+                                <option value="expiration_date-desc">
+                                    Hết hạn (Muộn nhất)
+                                </option>
+                                <option value="expiration_date-asc">
+                                    Hết hạn (Sớm nhất)
+                                </option>
+                                <option value="applicant_count-desc">
+                                    Số ứng viên (Nhiều nhất)
+                                </option>
+                                <option value="applicant_count-asc">
+                                    Số ứng viên (Ít nhất)
+                                </option>
+                            </select>
+                        </div>
+
                         <div className="search-control">
                             <input type="text" placeholder="Tìm kiếm" />
                         </div>
